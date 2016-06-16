@@ -16,7 +16,7 @@ app.use(bodyParser.json());
  * Exercise 2: Create an utility that given the following URLs extracts the different parts of it
  */
 app.get('/extract-url', (req, res) => {
-  res.send(urlParse(req.query.url));
+  res.send(req.query.url ? urlParse(req.query.url) : 'you have to provide an encoded url');
 });
 
 const port = 2016
