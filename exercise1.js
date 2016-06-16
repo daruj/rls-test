@@ -50,10 +50,16 @@ app.get('/test-valid', (req, res) => {
     pets: ['sexyParrot', 'fuckerLizard']
   }
 
-  const result = user.validate(profile);
+  const validation = user.validate(profile);
 
+  const result = !validation.length
+                    ? 'Success'
+                    :  Object.keys(validation).reduce((key, index) => {
+                          key[validation[index].path] = validation[index].message;
+                          return key;
+                       }, {})
 
-  res.send(!result.length ? 'Success' : result)
+  res.send(result);
 
 });
 
@@ -70,9 +76,16 @@ app.get('/test-invalid', (req, res) => {
     pets: [121, "asafafs"]
   }
 
-  const result = user.validate(profile);
+  const validation = user.validate(profile);
 
-  res.send(!result.length ? 'Success' : result)
+  const result = !validation.length
+                    ? 'Success'
+                    :  Object.keys(validation).reduce((key, index) => {
+                          key[validation[index].path] = validation[index].message;
+                          return key;
+                       }, {})
+
+  res.send(result);
 
 });
 
