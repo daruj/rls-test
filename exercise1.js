@@ -37,6 +37,12 @@ const schema = {
   }
 };
 
+const getValidationErrors = (validation) =>
+  Object.keys(validation)
+        .reduce((key, index) =>
+          Object.assign({ [validation[index].path]: validation[index].message }, key)
+        , {});
+
 app.get('/test-valid', (req, res) => {
 
   var user = schemaValidator(schema);
@@ -52,14 +58,7 @@ app.get('/test-valid', (req, res) => {
 
   const validation = user.validate(profile);
 
-  const result = !validation.length
-                    ? 'Success'
-                    :  Object.keys(validation).reduce((key, index) => {
-                          key[validation[index].path] = validation[index].message;
-                          return key;
-                       }, {})
-
-  res.send(result);
+  res.send(!validation.length ? 'Success' :  getValidationErrors(validation));
 
 });
 
@@ -78,14 +77,7 @@ app.get('/test-invalid', (req, res) => {
 
   const validation = user.validate(profile);
 
-  const result = !validation.length
-                    ? 'Success'
-                    :  Object.keys(validation).reduce((key, index) => {
-                          key[validation[index].path] = validation[index].message;
-                          return key;
-                       }, {})
-
-  res.send(result);
+  res.send(!validation.length ? 'Success' :  getValidationErrors(validation));
 
 });
 
