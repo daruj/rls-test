@@ -1,5 +1,13 @@
+/**
+ * Exercise 1: Create a 'schema validation' utility that uses this example objects
+ * and a 'schema' for validating. Must return success when sending validProfile
+ * and should show errors indicating that 'username' is not optional, self.age
+ * should be numeric and pets should be only strings, when sending 'invalidProfile'
+ * as param.
+ */
+
+
 import express from 'express';
-import Validator from 'schema-validator';
 import schemaValidator from 'validate';
 
 
@@ -28,14 +36,6 @@ const schema = {
     }
   }
 };
-
-/**
- * Exercise 1: Create a 'schema validation' utility that uses this example objects
- * and a 'schema' for validating. Must return success when sending validProfile
- * and should show errors indicating that 'username' is not optional, self.age
- * should be numeric and pets should be only strings, when sending 'invalidProfile'
- * as param.
- */
 
 app.get('/test-valid', (req, res) => {
 
